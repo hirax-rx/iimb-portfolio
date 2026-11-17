@@ -2327,7 +2327,7 @@ a:hover { color: var(--color-terracotta); text-decoration: none; }
 .treatment-card { position: relative; min-height: 310px; display: flex; flex-direction: column; padding: 1.5rem; background: var(--color-ink); color: #f8f4e9; border-radius: 5px 5px 28px 5px; overflow: hidden; }
 .treatment-card:nth-child(2) { background: var(--color-terracotta); }
 .treatment-card:nth-child(3) { background: #e9d8ad; color: color: #172522; /* Ensures dark ink text on light background */ }
-.treatment-card::after { content: "✳"; position: absolute; right: 1rem; bottom: .3rem; font: 6rem var(--font-serif); opacity: .09; }
+.treatment-card::after { content: ""; position: absolute; right: 1rem; bottom: .3rem; font: 6rem var(--font-serif); opacity: .09; }
 .treatment-header { display: flex; flex-direction: column; gap: .5rem; padding-bottom: 1.2rem; border-bottom: 1px solid currentColor; opacity: .85; }
 .treatment-header .mono-code { font-size: .58rem; }
 .treatment-genre { font: .55rem var(--font-mono); letter-spacing: .08em; }
@@ -2336,7 +2336,7 @@ a:hover { color: var(--color-terracotta); text-decoration: none; }
 .treatment-meta { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: 1rem; }
 .meta-tag { border: 1px solid currentColor; border-radius: 99px; padding: .32rem .55rem; font: .52rem var(--font-mono); }
 .brand-identity-feature { margin-top: 1.2rem; padding: clamp(1.6rem, 4vw, 3.5rem); background: var(--color-cobalt-dark); color: #f8f4e9; border-radius: 6px 6px 34px 6px; position: relative; overflow: hidden; }
-.brand-identity-feature::before { content: "✳"; position: absolute; right: -1rem; top: -4rem; font: 18rem var(--font-serif); color: rgba(255,255,255,.055); }
+.brand-identity-feature::before { content: ""; position: absolute; right: -1rem; top: -4rem; font: 18rem var(--font-serif); color: rgba(255,255,255,.055); }
 .brand-feature-content { position: relative; z-index: 1; }
 .feature-tag { font: .61rem var(--font-mono); letter-spacing: .12em; color: var(--color-yellow); }
 .feature-heading { max-width: 17ch; color: #fffdf8; font: clamp(2.4rem, 4vw, 4rem)/1 var(--font-serif); margin: 1rem 0; }
