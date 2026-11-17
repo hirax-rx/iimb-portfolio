@@ -1,0 +1,2498 @@
+/* ==========================================================================
+   HIRANMAYI S. — EDITORIAL RESUME & PORTFOLIO STYLESHEET (style.css)
+   Indian Institute of Management Bangalore (IIMB) — BBA DBE 2026
+   
+   Author: Hiranmayi S.
+   Course: IIMB Website Development (Modules 2, 3, 4, 5)
+   Instructor: Govind Shenoy
+
+   TOPICAL INDEX OF LECTURE CONCEPTS:
+   1. CSS Reset & Box-Sizing (Universal Selector `*`, Box Model, Module 4)
+   2. Design Tokens & Color System (65-25-10 Ratio, Contrast, Module 2 & 4)
+   3. Base Typography (Instrument Serif, DM Sans, Space Mono, Module 2 & 4)
+   4. Layout Framework & Utilities (Container, Rules, Margins, Module 4 & 5)
+   5. Sticky Masthead & Navigation (position: sticky, Flexbox, Pseudo-classes, Module 4 & 5)
+   6. Hero Section (Asymmetric CSS Grid, Typographic Hierarchy, Module 2 & 5)
+   7. Capabilities Grid (CSS Grid with Column Spans, Module 5)
+   8. Selected Work Dossiers (Flexbox, Grid, Callout Boxes, Module 4 & 5)
+   9. The Research Desk (Semantic HTML Table, border-collapse, Module 3 & 4)
+   10. Creative Experiments & Storyboard Cards (Grid, First-letter styling, Module 4 & 5)
+   11. About, Education & Skills (Asymmetric Columns, Tables, Chips, Module 3, 4, 5)
+   12. Contact Section & Inquiry Form (Form styling, Inputs, Focus states, Module 3 & 4)
+   13. Footer & Colophon (Semantic Footer, Multi-column Flexbox, Module 3 & 5)
+   14. Responsive Design & Media Queries (1024px, 768px, 480px, 360px, Module 5)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS RESET & BOX-SIZING
+   Lecture Reference: Module 4 — Universal Selector & Box Model
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* Ensures padding & borders are included in element's total width/height */
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   2. DESIGN TOKENS & COLOR SYSTEM
+   Lecture Reference: Module 2 — Color Theory & 65-25-10 Restrained Ratio
+   ========================================================================== */
+:root {
+  /* Primary 65% Background: Warm, tactile, non-glare paper surface */
+  --color-paper: #F7F3EA;
+  
+  /* Primary 25% Neutral / Ink: High-contrast headings, text, rules, and borders */
+  --color-ink: #24231F;
+  --color-ink-muted: #56544E;
+  --color-ink-light: #7A7870;
+
+  /* Accent 10%: Cobalt Blue, Terracotta, Butter Yellow, Warm Sand */
+  --color-cobalt: #2D46C5;
+  --color-cobalt-light: #E8ECFB;
+  --color-cobalt-dark: #1E308B;
+  
+  --color-terracotta: #C85D41;
+  --color-terracotta-bg: #F7EAE6;
+  
+  --color-yellow: #F3D37C;
+  --color-yellow-light: #FBF4DE;
+  
+  --color-sand: #E6DDD0;
+  --color-sand-light: #EFE9E0;
+  --color-white: #FFFFFF;
+
+  /* Typography Stack */
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+
+  /* Editorial Borders & Hairlines */
+  --border-thin: 1px solid var(--color-ink);
+  --border-thick: 2px solid var(--color-ink);
+  --border-dashed: 1px dashed var(--color-ink);
+  --border-subtle: 1px solid rgba(36, 35, 31, 0.18);
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Layout Widths */
+  --container-max: 1260px;
+}
+
+/* Smooth Scrolling for internal anchor links */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--color-paper);
+}
+
+/* ==========================================================================
+   3. BASE TYPOGRAPHY & SELECTION
+   Lecture Reference: Module 4 — Element Selectors & Pseudo-elements
+   ========================================================================== */
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Pseudo-element Selector: Custom text selection highlighting */
+::selection {
+  background-color: var(--color-yellow);
+  color: var(--color-ink);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+p {
+  margin-bottom: 1rem;
+  max-width: 65ch; /* Lecture concept: 40-60 char ideal reading line length */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--color-cobalt);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+ul, ol {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+/* ==========================================================================
+   4. LAYOUT FRAMEWORK & EDITORIAL UTILITIES
+   Lecture Reference: Module 4 — Box Model & Module 5 — Flexbox/Grid
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+.content-section {
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+  border-bottom: var(--border-thin);
+}
+
+.section-sand {
+  background-color: var(--color-sand-light);
+}
+
+/* Section Header Typography & Numbering */
+.section-header {
+  margin-bottom: var(--space-2xl);
+  border-top: var(--border-thick);
+  padding-top: var(--space-lg);
+}
+
+/* Combinator Selector: Child & Descendant */
+.section-number-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.section-big-number {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-ink);
+  font-weight: 400;
+}
+
+.section-tag-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  color: var(--color-cobalt);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-sm);
+  max-width: 22ch;
+}
+
+.section-intro {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  color: var(--color-ink-muted);
+  max-width: 55ch;
+  line-height: 1.55;
+}
+
+/* Editorial Monospace Tokens */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mono-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.mono-symbol {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-cobalt);
+}
+
+.text-cobalt {
+  color: var(--color-cobalt);
+}
+
+/* ==========================================================================
+   5. STICKY MASTHEAD & NAVIGATION
+   Lecture Reference: Module 4 — position: sticky, Flexbox, :hover, :active
+   ========================================================================== */
+.editorial-masthead {
+  position: sticky; /* Lecture Concept: Sticky navigation staying visible while scrolling */
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-paper);
+  border-bottom: var(--border-thin);
+  width: 100%;
+}
+
+.masthead-inner {
+  display: flex; /* Lecture Concept: Flexbox for horizontal navigation bar */
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.75rem var(--space-lg);
+}
+
+.masthead-brand .brand-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+
+.brand-name {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.brand-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+}
+
+.masthead-nav {
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pseudo-class Selectors: :hover & :active interactive styling */
+.nav-item {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  padding: 0.35rem 0.6rem;
+  border: 1px solid transparent;
+  display: inline-block;
+  transition: all 0.15s ease;
+}
+
+.nav-item:hover {
+  color: var(--color-cobalt);
+  border: 1px solid var(--color-cobalt);
+  background-color: var(--color-cobalt-light);
+  text-decoration: none;
+}
+
+.nav-item:active {
+  background-color: var(--color-cobalt);
+  color: var(--color-white);
+}
+
+.nav-item-cta {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-weight: 700;
+  border: 1px solid var(--color-ink);
+}
+
+.nav-item-cta:hover {
+  background-color: var(--color-cobalt);
+  color: var(--color-white);
+  border-color: var(--color-cobalt);
+}
+
+.masthead-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-ink-muted);
+  line-height: 1.35;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #2BA84A; /* Live green availability dot */
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   6. HERO SECTION
+   Lecture Reference: Module 2 — Visual Hierarchy, Module 5 — CSS Grid
+   Asymmetric 2-column composition with high-impact serif typography
+   ========================================================================== */
+.hero-section {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+  border-bottom: var(--border-thin);
+  background-color: var(--color-paper);
+}
+
+.hero-container {
+  display: grid; /* Module 5: CSS Grid Layout */
+  grid-template-columns: 1.5fr 1fr; /* Asymmetrical columns (unequal widths) */
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.editorial-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  color: var(--color-ink-muted);
+}
+
+.eyebrow-bullet {
+  color: var(--color-terracotta);
+  font-size: 0.8rem;
+}
+
+.eyebrow-divider {
+  color: var(--color-ink-light);
+}
+
+.mono-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-light);
+}
+
+/* Main Hero Headline: Instrument Serif at 80-110px clamp */
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 6.2vw, 5.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-lg);
+  color: var(--color-ink);
+  max-width: 18ch;
+}
+
+.headline-italic {
+  font-style: italic;
+  font-family: var(--font-serif);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--color-cobalt);
+}
+
+/* Decorative Annotation Box */
+.hero-annotation {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  background-color: var(--color-yellow); /* Butter yellow emphasis */
+  border: var(--border-thin);
+  padding: 0.5rem 0.85rem;
+  margin-bottom: var(--space-lg);
+  max-width: fit-content;
+}
+
+.annotation-badge {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+}
+
+.annotation-text {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.hero-body {
+  margin-bottom: var(--space-xl);
+}
+
+.hero-lead {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+}
+
+.hero-subtext {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+}
+
+/* CTA Buttons: Module 2 Call-to-Action Principles & Module 4 Box Model */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.6rem;
+  border: var(--border-thick);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-cobalt);
+  color: var(--color-white);
+  border-color: var(--color-cobalt);
+  box-shadow: 3px 3px 0px var(--color-ink); /* Offset editorial shadow */
+}
+
+.btn-primary:hover {
+  background-color: var(--color-cobalt-dark);
+  color: var(--color-white);
+  box-shadow: 4px 4px 0px var(--color-ink);
+  text-decoration: none;
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--color-ink);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: 3px 3px 0px var(--color-sand);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  text-decoration: none;
+}
+
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--color-ink-muted);
+  border-color: transparent;
+  padding: 0.85rem 0.5rem;
+}
+
+.btn-tertiary:hover {
+  color: var(--color-cobalt);
+  text-decoration: underline;
+}
+
+/* Hero Right Column: Field Memo Card */
+.field-memo-card {
+  background-color: var(--color-sand);
+  border: var(--border-thick);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: 6px 6px 0px var(--color-ink); /* High tactile editorial drop */
+  position: relative;
+}
+
+.card-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-terracotta);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.memo-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+}
+
+.memo-rule {
+  height: 2px;
+  background-color: var(--color-ink);
+  width: 100%;
+  margin-bottom: var(--space-md);
+}
+
+.memo-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  border-left: 3px solid var(--color-terracotta);
+  padding: 0.85rem 1rem;
+  margin-bottom: var(--space-lg);
+}
+
+.memo-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: var(--space-lg);
+  border-top: var(--border-thin);
+  padding-top: var(--space-md);
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.85rem;
+  border-bottom: 1px dotted rgba(36, 35, 31, 0.25);
+  padding-bottom: 0.35rem;
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: right;
+}
+
+.memo-footer-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  text-align: right;
+}
+
+/* Horizontal Editorial Tape / Ticker */
+.editorial-tape {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  overflow: hidden;
+  border-bottom: var(--border-thick);
+  padding: 0.6rem 0;
+}
+
+.tape-content {
+  display: flex;
+  gap: 2rem;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+.tape-sep {
+  color: var(--color-yellow);
+}
+
+/* ==========================================================================
+   7. SECTION 01: CAPABILITIES GRID
+   Lecture Reference: Module 5 — CSS Grid with Asymmetric Column Spans
+   ========================================================================== */
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 column base grid */
+  gap: var(--space-lg);
+}
+
+/* Asymmetric Span for visual dynamism */
+.cap-span-2 {
+  grid-column: span 2; /* Spans 2 columns */
+  background-color: var(--color-paper);
+}
+
+.capability-card {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.capability-card:hover {
+  box-shadow: 4px 4px 0px var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.cap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  border-bottom: var(--border-thin);
+  padding-bottom: 0.5rem;
+}
+
+.cap-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-ink-muted);
+}
+
+.cap-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--color-sand);
+  border: 1px solid var(--color-ink);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.cap-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink);
+}
+
+.cap-description {
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+  max-width: none;
+}
+
+.cap-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px dotted rgba(36, 35, 31, 0.25);
+  padding-top: var(--space-sm);
+}
+
+/* Pseudo-element Selector: Custom bullet symbol */
+.cap-points li {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-ink);
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.cap-points li::before {
+  content: "→";
+  color: var(--color-cobalt);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   8. SECTION 02: SELECTED WORK DOSSIERS
+   Lecture Reference: Module 4 — Box Model & Module 5 — Grid / Flexbox
+   Showcasing MEESU, KAIRO, and AI IN MANUFACTURING
+   ========================================================================== */
+.project-dossier {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  margin-bottom: var(--space-2xl);
+  box-shadow: 6px 6px 0px var(--color-ink);
+}
+
+.project-dossier:last-child {
+  margin-bottom: 0;
+}
+
+.project-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem var(--space-lg);
+  border-bottom: var(--border-thick);
+  background-color: var(--color-sand);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-meta-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.project-category-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.project-stage-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-transform: uppercase;
+}
+
+.stage-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.stage-active {
+  background-color: var(--color-yellow);
+}
+
+.stage-active .stage-dot {
+  background-color: var(--color-terracotta);
+}
+
+.stage-concluded {
+  background-color: var(--color-sand-light);
+  color: var(--color-ink-muted);
+}
+
+.stage-concluded .stage-dot {
+  background-color: var(--color-ink-light);
+}
+
+.stage-completed {
+  background-color: var(--color-cobalt-light);
+  color: var(--color-cobalt-dark);
+}
+
+.stage-completed .stage-dot {
+  background-color: var(--color-cobalt);
+}
+
+/* Two-column Project Grid */
+.project-main-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.project-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.project-subtitle {
+  font-size: 0.65em;
+  font-style: italic;
+  color: var(--color-ink-muted);
+  font-family: var(--font-serif);
+  display: inline-block;
+}
+
+.project-period-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-terracotta);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+.project-question-box {
+  background-color: var(--color-paper);
+  border-left: 3px solid var(--color-cobalt);
+  padding: 0.85rem 1.15rem;
+  margin-bottom: var(--space-md);
+  border-top: 1px solid var(--color-sand);
+  border-right: 1px solid var(--color-sand);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.question-prefix {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-cobalt);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.question-quote {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.project-prose p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.85rem;
+}
+
+/* Editorial Callouts */
+.editorial-callout {
+  border: var(--border-thin);
+  padding: 1.15rem;
+  margin-top: var(--space-lg);
+}
+
+.callout-yellow {
+  background-color: var(--color-yellow-light);
+  border-left: 4px solid var(--color-yellow);
+}
+
+.callout-sand {
+  background-color: var(--color-sand);
+  border-left: 4px solid var(--color-terracotta);
+}
+
+.callout-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.callout-statement {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 1.45;
+  color: var(--color-ink);
+  margin-bottom: 0.35rem;
+}
+
+.callout-author {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
+}
+
+/* Right Spec Panel */
+.project-spec-panel {
+  background-color: var(--color-sand-light);
+  border: var(--border-thin);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spec-panel-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  border-bottom: var(--border-thin);
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.spec-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: var(--space-md);
+}
+
+.spec-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border-bottom: 1px dotted rgba(36, 35, 31, 0.2);
+  padding-bottom: 0.65rem;
+}
+
+.spec-item:last-child {
+  border-bottom: none;
+}
+
+.spec-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-cobalt);
+  min-width: 1.5rem;
+}
+
+.spec-content h5 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  margin-bottom: 0.2rem;
+}
+
+.spec-content p {
+  font-size: 0.86rem;
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.dossier-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-md);
+}
+
+.dossier-list li {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.65rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.dossier-list li::before {
+  content: "■";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  color: var(--color-cobalt);
+  font-size: 0.55rem;
+}
+
+.project-disclaimer {
+  background-color: var(--color-paper);
+  border: 1px dashed var(--color-ink-light);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.72rem;
+  color: var(--color-ink-muted);
+  margin-top: auto;
+}
+
+/* Research Stat Counter Strip (Project 03: IMTEX) */
+.research-stat-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: 1.25rem 0.75rem;
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
+.stat-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--color-cobalt);
+  font-weight: 400;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-top: 0.25rem;
+}
+
+.stat-divider {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-ink-light);
+}
+
+/* ==========================================================================
+   9. SECTION 03: THE RESEARCH DESK
+   Lecture Reference: Module 3 — Semantic HTML Tables (<thead>, <tbody>, <th>, <td>)
+   Module 4 — border-collapse: collapse & table layout styling
+   ========================================================================== */
+.table-responsive-wrapper {
+  overflow-x: auto;
+  border: var(--border-thick);
+  margin-bottom: var(--space-md);
+  background-color: var(--color-paper);
+}
+
+.editorial-table {
+  width: 100%;
+  border-collapse: collapse; /* Lecture Concept: border-collapse eliminates double table borders */
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.editorial-table thead {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.editorial-table th {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 1rem;
+  font-weight: 700;
+  border-bottom: var(--border-thick);
+}
+
+.editorial-table td {
+  padding: 1.15rem 1rem;
+  border-bottom: var(--border-thin);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+/* Pseudo-class: Alternating row colors (:nth-of-type(even)) */
+.editorial-table tbody tr:nth-of-type(even) {
+  background-color: var(--color-sand-light);
+}
+
+.editorial-table tbody tr:hover {
+  background-color: var(--color-yellow-light);
+}
+
+.td-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-cobalt);
+  white-space: nowrap;
+}
+
+.table-subtext {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--color-ink-muted);
+  margin-top: 0.25rem;
+}
+
+.table-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid var(--color-ink);
+}
+
+.badge-blue {
+  background-color: var(--color-cobalt-light);
+  color: var(--color-cobalt-dark);
+}
+
+.badge-terracotta {
+  background-color: var(--color-terracotta-bg);
+  color: var(--color-terracotta);
+}
+
+.badge-yellow {
+  background-color: var(--color-yellow);
+  color: var(--color-ink);
+}
+
+.badge-ink {
+  background-color: var(--color-sand);
+  color: var(--color-ink);
+}
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.pill-muted {
+  color: var(--color-ink-light);
+  font-style: italic;
+}
+
+.research-table-footnote {
+  padding: 0.5rem 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+/* ==========================================================================
+   10. SECTION 04: CREATIVE EXPERIMENTS
+   Lecture Reference: Module 4 & 5 — CSS Grid, Card Design & Pseudo-elements
+   ========================================================================== */
+.creative-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.treatment-card {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 4px 0px var(--color-ink);
+  position: relative;
+}
+
+.treatment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: var(--border-thin);
+  padding-bottom: 0.4rem;
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.treatment-genre {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-terracotta);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.treatment-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+/* Pseudo-element: First-letter enlarged drop quote styling */
+.treatment-synopsis {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.treatment-synopsis::first-letter {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  float: left;
+  line-height: 0.9;
+  margin-right: 0.4rem;
+  color: var(--color-cobalt);
+}
+
+.treatment-meta {
+  border-top: 1px dotted rgba(36, 35, 31, 0.25);
+  padding-top: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meta-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  letter-spacing: 0.06em;
+}
+
+/* Brand Identity Exploration Feature Block */
+.brand-identity-feature {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: var(--space-xl);
+  box-shadow: 6px 6px 0px var(--color-ink);
+}
+
+.feature-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-cobalt);
+  margin-bottom: var(--space-xs);
+}
+
+.feature-heading {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.feature-body {
+  font-size: 1.05rem;
+  color: var(--color-ink-muted);
+  line-height: 1.65;
+  margin-bottom: var(--space-lg);
+  max-width: 70ch;
+}
+
+.feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.pill-ink {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  background-color: var(--color-sand);
+  border: 1px solid var(--color-ink);
+  padding: 0.35rem 0.75rem;
+  font-weight: 600;
+}
+
+.brand-feature-notice {
+  border-top: 1px dashed var(--color-ink-light);
+  padding-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+}
+
+/* ==========================================================================
+   11. SECTION 05: ABOUT, SKILLS & EDUCATION
+   Lecture Reference: Module 3 — Semantic Structure, Module 5 — Two-column Grid
+   ========================================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr; /* Asymmetric split */
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.profile-statement-box {
+  background-color: var(--color-yellow-light);
+  border: var(--border-thick);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: 4px 4px 0px var(--color-ink);
+}
+
+.sub-heading {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-md);
+  border-bottom: var(--border-thin);
+  padding-bottom: 0.4rem;
+  color: var(--color-ink);
+}
+
+.mini-heading {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.lead-text {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+}
+
+.body-text {
+  font-size: 0.96rem;
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+}
+
+.about-subblock {
+  margin-bottom: var(--space-xl);
+}
+
+.leadership-entry {
+  background-color: var(--color-paper);
+  border: var(--border-thin);
+  padding: 1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.entry-role {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 0.25rem;
+}
+
+.entry-desc {
+  font-size: 0.88rem;
+  color: var(--color-ink-muted);
+  line-height: 1.5;
+}
+
+/* Interests Tags */
+.interests-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: var(--space-md);
+}
+
+.tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background-color: var(--color-sand);
+  border: 1px solid var(--color-ink);
+  padding: 0.25rem 0.65rem;
+}
+
+/* Languages Matrix */
+.languages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.lang-card {
+  background-color: var(--color-paper);
+  border: var(--border-thin);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.lang-level {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-cobalt);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Education Cards */
+.edu-card {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: 1.25rem;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.featured-edu {
+  background-color: var(--color-sand-light);
+  border-left: 6px solid var(--color-cobalt);
+}
+
+.edu-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-cobalt);
+  margin-bottom: 0.35rem;
+}
+
+.badge-alt {
+  color: var(--color-terracotta);
+}
+
+.edu-degree {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.edu-program {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  margin-bottom: 0.35rem;
+}
+
+.edu-period {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+  margin-bottom: 0.5rem;
+}
+
+.edu-score-badge {
+  position: absolute; /* Module 4: Absolute positioning inside relative card */
+  top: 1.25rem;
+  right: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  background-color: var(--color-yellow);
+  border: var(--border-thin);
+  padding: 0.2rem 0.6rem;
+}
+
+.edu-curriculum {
+  border-top: 1px dotted rgba(36, 35, 31, 0.25);
+  padding-top: 0.65rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+
+.curriculum-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--color-ink);
+}
+
+/* Skills Matrix Blocks */
+.skills-category-block {
+  background-color: var(--color-paper);
+  border: var(--border-thin);
+  padding: 1.15rem;
+  margin-bottom: var(--space-md);
+}
+
+.skill-cat-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-sand);
+  padding-bottom: 0.35rem;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  background-color: var(--color-sand-light);
+  border: 1px solid rgba(36, 35, 31, 0.25);
+  padding: 0.25rem 0.65rem;
+  color: var(--color-ink);
+}
+
+.skill-disclaimer {
+  font-size: 0.74rem;
+  font-style: italic;
+  color: var(--color-ink-light);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   12. SECTION 06: CONTACT & INQUIRY DESK
+   Lecture Reference: Module 3 — HTML Forms, Inputs, Select, Required Validation
+   Module 4 — Box Model, Pseudo-classes (:focus, :hover)
+   ========================================================================== */
+.section-contact {
+  background-color: var(--color-sand-light);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.opportunity-box {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: 4px 4px 0px var(--color-ink);
+}
+
+.opp-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ink);
+}
+
+.opp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.opp-list li {
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.opp-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--color-terracotta);
+  font-size: 0.7rem;
+  top: 0.15rem;
+}
+
+.direct-channels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.channels-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-bottom: 0.25rem;
+}
+
+.channel-card {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.channel-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ink-light);
+}
+
+.channel-link {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-cobalt);
+  word-break: break-all;
+}
+
+.channel-link:hover {
+  text-decoration: underline;
+  color: var(--color-cobalt-dark);
+}
+
+.privacy-note {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-ink-light);
+  padding: 0.5rem 0.25rem;
+}
+
+/* Contact Form Panel */
+.form-wrapper {
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: 6px 6px 0px var(--color-ink);
+}
+
+.form-header {
+  margin-bottom: var(--space-lg);
+  border-bottom: var(--border-thick);
+  padding-bottom: 0.5rem;
+}
+
+.form-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  margin-top: 0.25rem;
+}
+
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  color: var(--color-ink);
+}
+
+.req {
+  color: var(--color-terracotta);
+}
+
+/* Form Controls (Inputs, Select, Textarea) */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  border: var(--border-thick);
+  border-radius: 0; /* Strict editorial sharp corners */
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* Pseudo-class Selector: :focus state */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-cobalt);
+  background-color: var(--color-white);
+  box-shadow: 3px 3px 0px var(--color-cobalt);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: var(--space-lg);
+}
+
+.btn-submit {
+  width: 100%;
+  justify-content: center;
+}
+
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  text-align: center;
+}
+
+/* ==========================================================================
+   13. FOOTER & COLOPHON
+   Lecture Reference: Module 3 — Semantic <footer>, Module 5 — Flexbox Columns
+   ========================================================================== */
+.editorial-footer {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-xl);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: var(--space-2xl);
+  border-bottom: 1px solid rgba(247, 243, 234, 0.2);
+  padding-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+}
+
+.colophon-title {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  display: block;
+  margin-bottom: var(--space-sm);
+  color: var(--color-yellow);
+}
+
+.colophon-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(247, 243, 234, 0.75);
+  max-width: 45ch;
+}
+
+.footer-nav-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  display: block;
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(247, 243, 234, 0.25);
+  padding-bottom: 0.35rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.4rem;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: rgba(247, 243, 234, 0.8);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--color-yellow);
+  text-decoration: underline;
+}
+
+.credit-spec {
+  font-size: 0.82rem;
+  color: rgba(247, 243, 234, 0.7);
+  margin-bottom: 0.4rem;
+  line-height: 1.45;
+}
+
+.credit-spec strong {
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.back-to-top-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-yellow);
+  font-weight: 700;
+}
+
+.back-to-top-link:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(247, 243, 234, 0.5);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.copyright {
+  letter-spacing: 0.04em;
+}
+
+.footer-academic-tag {
+  letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   14. RESPONSIVE DESIGN & MEDIA QUERIES
+   Lecture Reference: Module 5 — Media Queries (Breakpoints & Adaptation)
+   Desktop (>1024px), Tablet (768px-1024px), Mobile (<768px & <480px)
+   ========================================================================== */
+
+/* Tablet & Smaller Desktop Viewports (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .hero-aside {
+    max-width: 600px;
+  }
+
+  .capabilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cap-span-2 {
+    grid-column: span 2;
+  }
+
+  .project-main-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .creative-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+
+  .footer-colophon {
+    grid-column: span 2;
+  }
+}
+
+/* Mobile & Small Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .masthead-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem var(--space-md);
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .masthead-meta {
+    display: none; /* Hide secondary meta on mobile to conserve header space */
+  }
+
+  .hero-section {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  .hero-headline {
+    font-size: 2.75rem;
+  }
+
+  .section-heading {
+    font-size: 2.2rem;
+  }
+
+  .capabilities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cap-span-2 {
+    grid-column: span 1;
+  }
+
+  .research-stat-strip {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .languages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-colophon {
+    grid-column: span 1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* Compact Smartphones (max-width: 480px) */
+@media (max-width: 480px) {
+  :root {
+    --space-2xl: 2.5rem;
+    --space-3xl: 3.5rem;
+  }
+
+  .container {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .hero-headline {
+    font-size: 2.25rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .field-memo-card {
+    padding: var(--space-md);
+  }
+
+  .project-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .editorial-table th,
+  .editorial-table td {
+    padding: 0.75rem 0.6rem;
+    font-size: 0.82rem;
+  }
+
+  .edu-score-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   2026 REDESIGN — PAGE-BY-PAGE EDITORIAL PORTFOLIO
+   Content is intentionally unchanged. This layer reworks visual presentation
+   around 12 principles: hierarchy, contrast, balance, alignment, proximity,
+   repetition, whitespace, scale, typography, colour, grid, and movement.
+   ========================================================================== */
+
+:root {
+  --color-paper: #f6f2e9;
+  --color-ink: #172522;
+  --color-ink-muted: #56645e;
+  --color-ink-light: #7d8981;
+  --color-cobalt: #245b50;
+  --color-cobalt-light: #e1eee8;
+  --color-cobalt-dark: #153d36;
+  --color-terracotta: #d86b4d;
+  --color-terracotta-bg: #f7e8df;
+  --color-yellow: #f0c96d;
+  --color-yellow-light: #fbf3dc;
+  --color-sand: #e6ded0;
+  --color-sand-light: #eee8dc;
+  --color-white: #fffdf8;
+  --border-thin: 1px solid rgba(23,37,34,.2);
+  --border-thick: 2px solid var(--color-ink);
+  --border-subtle: 1px solid rgba(23,37,34,.12);
+  --container-max: 1320px;
+  --space-3xl: clamp(4.5rem, 8vw, 8rem);
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'DM Sans', 'Avenir Next', Avenir, sans-serif;
+  --font-mono: 'Space Mono', 'SFMono-Regular', Consolas, monospace;
+}
+
+html { scroll-padding-top: 96px; }
+body {
+  background:
+    radial-gradient(ellipse at 8% 8%, rgba(240,201,109,.10), transparent 28rem),
+    var(--color-paper);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: 1.72;
+}
+p { max-width: 68ch; }
+a { color: var(--color-cobalt); }
+a:hover { color: var(--color-terracotta); text-decoration: none; }
+::selection { background: var(--color-yellow); color: var(--color-ink); }
+
+.container { max-width: var(--container-max); padding-inline: clamp(1.1rem, 4vw, 3.25rem); }
+.content-section { position: relative; padding-block: var(--space-3xl); border-bottom: 0; }
+.section-sand {
+  background:
+    linear-gradient(135deg, rgba(255,253,248,.78), rgba(230,222,208,.65)),
+    var(--color-sand-light);
+}
+.section-header {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(115px, .28fr) minmax(0, 1fr);
+  column-gap: clamp(1.5rem, 4vw, 4rem);
+  row-gap: .8rem;
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(23,37,34,.3);
+}
+.section-number-wrap { grid-row: span 2; align-self: start; display: flex; flex-direction: column; gap: .25rem; }
+.section-big-number {
+  font-size: clamp(4rem, 7vw, 6.7rem);
+  line-height: .82;
+  color: var(--color-terracotta);
+  letter-spacing: -.06em;
+}
+.section-tag-label { font-size: .66rem; letter-spacing: .14em; color: var(--color-cobalt); }
+.section-heading {
+  max-width: 18ch;
+  font-size: clamp(2.7rem, 5.6vw, 5.25rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+}
+.section-intro { font-size: 1.04rem; line-height: 1.65; max-width: 58ch; margin: 0; color: var(--color-ink-muted); }
+.mono-label, .mono-code { font-size: .65rem; letter-spacing: .1em; }
+.mono-symbol { color: var(--color-terracotta); }
+
+/* 01 — MASTHEAD: alignment, repetition, restrained contrast */
+.editorial-masthead {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(246,242,233,.91);
+  border-bottom: 1px solid rgba(23,37,34,.16);
+  backdrop-filter: blur(18px);
+}
+.masthead-inner {
+  max-width: 1440px; min-height: 76px; margin: auto;
+  padding: .7rem clamp(1rem, 3.5vw, 3.2rem);
+  display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;
+}
+.brand-link { display: flex; flex-direction: column; gap: .08rem; color: var(--color-ink); text-decoration: none; }
+.brand-name { font-family: var(--font-serif); font-size: 1.65rem; line-height: 1; letter-spacing: -.02em; }
+.brand-tag { font-family: var(--font-mono); font-size: .55rem; letter-spacing: .08em; color: var(--color-ink-muted); }
+.masthead-nav { justify-self: center; }
+.nav-links { display: flex; align-items: center; gap: clamp(.7rem, 1.5vw, 1.5rem); list-style: none; padding: 0; margin: 0; }
+.nav-links li { margin: 0; }
+.nav-item { display: inline-block; color: var(--color-ink-muted); font-size: .78rem; font-weight: 600; padding: .55rem .1rem; transition: color .2s ease; }
+.nav-item:hover { color: var(--color-terracotta); }
+.nav-item-cta { padding: .65rem 1rem; border-radius: 99px; background: var(--color-ink); color: var(--color-white); }
+.nav-item-cta:hover { background: var(--color-terracotta); color: white; }
+.masthead-meta { display: flex; flex-direction: column; gap: .25rem; align-items: flex-end; }
+.meta-edition { font: .58rem var(--font-mono); letter-spacing: .1em; color: var(--color-ink-light); }
+.status-indicator { font: 600 .58rem var(--font-sans); letter-spacing: .07em; color: var(--color-cobalt); }
+.status-dot, .stage-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #3c9a71; margin-right: .35rem; box-shadow: 0 0 0 3px rgba(60,154,113,.12); }
+
+/* 02 — HERO: dramatic scale, asymmetrical balance, typographic contrast */
+.hero-section {
+  position: relative; overflow: hidden;
+  padding: clamp(4.5rem, 9vw, 8.5rem) 0 clamp(4rem, 7vw, 6.5rem);
+  background:
+    radial-gradient(circle at 86% 18%, rgba(216,107,77,.13), transparent 22rem),
+    linear-gradient(115deg, #f6f2e9 0%, #f6f2e9 60%, #eee7d9 100%);
+}
+.hero-section::before {
+  content: "FIELD NOTES / 2026";
+  position: absolute; right: -1.8rem; top: 8rem;
+  writing-mode: vertical-rl; font: .6rem var(--font-mono);
+  letter-spacing: .22em; color: rgba(23,37,34,.28);
+}
+.hero-container { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
+.editorial-eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-bottom: 2rem; color: var(--color-ink-muted); }
+.eyebrow-bullet { color: var(--color-terracotta); font-size: 1.1rem; }
+.eyebrow-divider { color: var(--color-terracotta); }
+.mono-sub { font: .62rem var(--font-mono); letter-spacing: .09em; }
+.hero-headline {
+  max-width: 11ch; margin: 0 0 2rem;
+  font-family: var(--font-serif); font-size: clamp(4rem, 8.6vw, 8.2rem);
+  line-height: .86; letter-spacing: -.055em; font-weight: 400;
+}
+.headline-italic { color: var(--color-terracotta); font-style: italic; }
+.hero-annotation { display: flex; align-items: flex-start; gap: 1rem; max-width: 38rem; padding: 1rem 0 1rem 1.1rem; border-left: 3px solid var(--color-yellow); margin-bottom: 1.8rem; }
+.annotation-badge { flex: 0 0 auto; background: var(--color-yellow); padding: .3rem .55rem; font: .63rem var(--font-mono); color: var(--color-ink); }
+.annotation-text { margin: 0; font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.25; }
+.hero-body { max-width: 43rem; }
+.hero-lead { font-size: 1.08rem; line-height: 1.8; }
+.hero-subtext { color: var(--color-ink-muted); font-size: .96rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; border-radius: 99px; padding: .9rem 1.35rem; font-size: .78rem; font-weight: 700; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-3px); text-decoration: none; }
+.btn-primary { background: var(--color-cobalt); color: white; border: 1px solid var(--color-cobalt); box-shadow: 0 9px 22px rgba(36,91,80,.16); }
+.btn-primary:hover { background: var(--color-terracotta); border-color: var(--color-terracotta); color: white; }
+.btn-secondary { color: var(--color-ink); border: 1px solid rgba(23,37,34,.35); background: transparent; }
+.btn-secondary:hover { background: var(--color-ink); color: white; }
+.btn-tertiary { color: var(--color-terracotta); padding-inline: .5rem; }
+.hero-aside { position: relative; }
+.field-memo-card {
+  position: relative; padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--color-ink); color: #f6f2e9;
+  border-radius: 4px 4px 38px 4px;
+  box-shadow: 18px 20px 0 rgba(216,107,77,.17), 0 25px 65px rgba(23,37,34,.15);
+  transform: rotate(1.2deg);
+}
+.field-memo-card::after { content: ""; position: absolute; top: -9px; right: 2rem; width: 65px; height: 18px; background: var(--color-yellow); transform: rotate(4deg); }
+.card-stamp, .spec-label, .mono-code { letter-spacing: .09em; }
+.card-stamp { color: var(--color-yellow); font: .62rem var(--font-mono); }
+.memo-title { color: var(--color-white); font: 2.25rem var(--font-serif); margin: 1.5rem 0 .8rem; }
+.memo-rule { width: 3rem; height: 3px; background: var(--color-terracotta); margin-bottom: 1.2rem; }
+.memo-quote { color: #e9e6dc; font: italic 1.35rem/1.35 var(--font-serif); }
+.memo-specs { margin-top: 1.8rem; border-top: 1px solid rgba(255,255,255,.2); }
+.spec-row { display: grid; grid-template-columns: .75fr 1.25fr; gap: .8rem; padding: .75rem 0; border-bottom: 1px solid rgba(255,255,255,.13); }
+.spec-label { font: .57rem var(--font-mono); color: #c4cfc7; }
+.spec-value { font-size: .75rem; color: #fffdf8; text-align: right; }
+.memo-footer-tag { margin-top: 1.2rem; color: var(--color-yellow); }
+.memo-footer-tag .mono-code { font-size: .55rem; }
+
+/* 03 — MARQUEE: rhythm and repetition, with a calmer pace */
+.editorial-tape { overflow: hidden; background: var(--color-terracotta); color: #fffaf0; padding: .85rem 0; border-block: 1px solid rgba(23,37,34,.2); }
+.tape-content { display: flex; align-items: center; justify-content: space-around; gap: 2.4rem; min-width: max-content; padding-inline: 2rem; font: .62rem var(--font-mono); letter-spacing: .13em; }
+.tape-sep { color: var(--color-yellow); font-size: 1rem; }
+
+/* 04 — CAPABILITIES: proximity, consistent card rhythm, varied card accents */
+.capabilities-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+.capability-card {
+  position: relative; overflow: hidden; min-height: 290px;
+  padding: clamp(1.3rem, 2.4vw, 2rem);
+  background: var(--color-white); border: 1px solid rgba(23,37,34,.13);
+  border-radius: 5px 5px 28px 5px;
+  box-shadow: 0 8px 25px rgba(23,37,34,.035);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.capability-card::before { content: ""; position: absolute; left: 0; top: 0; width: 4px; height: 100%; background: var(--card-accent, var(--color-cobalt)); }
+.capability-card:nth-child(2n) { --card-accent: var(--color-terracotta); }
+.capability-card:nth-child(3n) { --card-accent: #c49b3e; }
+.capability-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(23,37,34,.1); }
+.cap-span-2 { grid-column: span 2; }
+.cap-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.cap-num { font: .61rem var(--font-mono); color: var(--color-ink-light); }
+.cap-badge { border-radius: 99px; background: var(--color-cobalt-light); color: var(--color-cobalt-dark); padding: .35rem .65rem; font: .58rem var(--font-mono); letter-spacing: .08em; }
+.cap-title { font: 2rem/1.05 var(--font-serif); margin-bottom: .8rem; }
+.cap-description { color: var(--color-ink-muted); font-size: .88rem; line-height: 1.65; }
+.cap-points { display: flex; flex-wrap: wrap; gap: .4rem .5rem; list-style: none; padding: 0; margin: 1.1rem 0 0; }
+.cap-points li { margin: 0; border-radius: 99px; padding: .35rem .6rem; background: #f1eee6; color: var(--color-ink-muted); font-size: .68rem; }
+
+/* 05 — SELECTED WORK: dossier panels, hierarchy and project-specific colour */
+.project-dossier { margin-bottom: 1.6rem; background: var(--color-white); border: 1px solid rgba(23,37,34,.16); border-radius: 8px 8px 32px 8px; overflow: hidden; box-shadow: 0 14px 40px rgba(23,37,34,.055); }
+.project-header-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1rem; padding: 1rem 1.5rem; background: #e9e5d9; border-bottom: 1px solid rgba(23,37,34,.13); }
+.project-meta-pill { font: .6rem var(--font-mono); color: var(--color-cobalt); }
+.project-category-tag { font-size: .69rem; color: var(--color-ink-muted); }
+.project-stage-badge { margin-left: auto; font-size: .65rem; font-weight: 700; color: var(--color-cobalt-dark); }
+.stage-concluded .stage-dot { background: var(--color-terracotta); }
+.stage-completed .stage-dot { background: #c49b3e; }
+.project-main-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(320px,.92fr); gap: clamp(1.5rem, 3.5vw, 3.5rem); padding: clamp(1.5rem, 4vw, 3.25rem); }
+.project-title { font: clamp(2.5rem, 4.5vw, 4rem)/.98 var(--font-serif); letter-spacing: -.035em; margin-bottom: 1.4rem; }
+.project-subtitle { display: block; margin-top: .45rem; font: 600 .85rem/1.4 var(--font-sans); letter-spacing: 0; color: var(--color-ink-muted); }
+.project-period-tag { font: .59rem var(--font-mono); letter-spacing: .07em; color: var(--color-terracotta); margin: -.6rem 0 1.4rem; }
+.project-question-box { padding: 1rem 1.15rem; margin: 1.2rem 0; border-left: 3px solid var(--color-terracotta); background: #f8eee7; }
+.question-prefix { font: .59rem var(--font-mono); letter-spacing: .1em; color: var(--color-terracotta); }
+.question-quote { margin: .45rem 0 0; font: italic 1.28rem/1.35 var(--font-serif); }
+.project-prose { color: var(--color-ink-muted); font-size: .9rem; }
+.editorial-callout { margin-top: 1.5rem; padding: 1.2rem 1.3rem; border-radius: 4px 18px 4px 4px; }
+.callout-yellow { background: var(--color-yellow-light); border: 1px solid rgba(196,155,62,.28); }
+.callout-sand { background: #edf0e9; border: 1px solid rgba(36,91,80,.18); }
+.callout-label { font: .59rem var(--font-mono); letter-spacing: .08em; color: var(--color-terracotta); }
+.callout-statement { margin: .55rem 0; font: italic 1.22rem/1.35 var(--font-serif); }
+.callout-author { font-size: .65rem; color: var(--color-ink-muted); }
+.project-spec-panel { padding: 1.35rem; background: #f4f1e9; border-radius: 5px 5px 24px 5px; }
+.spec-panel-title { font: 1.5rem/1.15 var(--font-serif); margin-bottom: 1.2rem; }
+.spec-items-list { display: grid; gap: .85rem; }
+.spec-item { display: grid; grid-template-columns: 2rem 1fr; gap: .65rem; padding-bottom: .75rem; border-bottom: 1px solid rgba(23,37,34,.12); }
+.spec-num { color: var(--color-terracotta); font: 1rem var(--font-serif); }
+.spec-content h5 { font-size: .78rem; font-weight: 700; margin-bottom: .25rem; }
+.spec-content p { font-size: .75rem; line-height: 1.55; color: var(--color-ink-muted); margin: 0; }
+.dossier-list { padding-left: 1.15rem; color: var(--color-ink-muted); font-size: .82rem; line-height: 1.65; }
+.dossier-list li { padding-left: .2rem; margin-bottom: .65rem; }
+.project-disclaimer { margin-top: 1rem; padding-top: .8rem; border-top: 1px dashed rgba(23,37,34,.25); color: var(--color-ink-light); }
+.project-disclaimer .mono-code { font-size: .56rem; line-height: 1.6; }
+
+/* 06 — RESEARCH DESK: table clarity, alignment and readable density */
+.table-responsive-wrapper { overflow-x: auto; border: 1px solid rgba(23,37,34,.17); border-radius: 8px; background: var(--color-white); box-shadow: 0 12px 34px rgba(23,37,34,.045); }
+.editorial-table { width: 100%; border-collapse: collapse; min-width: 780px; }
+.editorial-table th { padding: 1rem .9rem; text-align: left; background: var(--color-ink); color: #f8f4e9; font: .59rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.editorial-table td { padding: 1.15rem .9rem; border-bottom: 1px solid rgba(23,37,34,.1); vertical-align: top; font-size: .78rem; line-height: 1.6; color: var(--color-ink-muted); }
+.editorial-table tbody tr:nth-child(even) { background: #f7f4ed; }
+.editorial-table tbody tr:hover { background: #edf3ed; }
+.editorial-table td strong { display: block; color: var(--color-ink); font-size: .82rem; }
+.table-subtext { display: block; font-size: .67rem; margin-top: .2rem; color: var(--color-ink-light); }
+.td-mono { font: .65rem var(--font-mono); color: var(--color-terracotta) !important; white-space: nowrap; }
+.table-badge, .status-pill { display: inline-block; border-radius: 99px; padding: .32rem .6rem; font-size: .6rem; font-weight: 700; white-space: nowrap; }
+.badge-blue { background: var(--color-cobalt-light); color: var(--color-cobalt-dark); }
+.badge-terracotta { background: var(--color-terracotta-bg); color: #9a442f; }
+.badge-yellow { background: var(--color-yellow-light); color: #80621d; }
+.badge-ink { background: #e6e8e2; color: var(--color-ink); }
+.status-pill { background: #e7efe8; color: #35664e; }
+.pill-muted { background: #ece9e2; color: #6d7069; }
+.research-table-footnote { padding: 1rem 1.1rem; margin-top: 1rem; background: rgba(255,253,248,.7); border-left: 3px solid var(--color-yellow); color: var(--color-ink-muted); }
+.research-table-footnote .mono-code { font-size: .61rem; line-height: 1.6; }
+
+/* 07 — CREATIVE: varied card compositions and a stronger colour moment */
+.creative-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+.treatment-card { position: relative; min-height: 310px; display: flex; flex-direction: column; padding: 1.5rem; background: var(--color-ink); color: #f8f4e9; border-radius: 5px 5px 28px 5px; overflow: hidden; }
+.treatment-card:nth-child(2) { background: var(--color-terracotta); }
+.treatment-card:nth-child(3) { background: #e9d8ad; color: var(--color-ink); }
+.treatment-card::after { content: "✳"; position: absolute; right: 1rem; bottom: .3rem; font: 6rem var(--font-serif); opacity: .09; }
+.treatment-header { display: flex; flex-direction: column; gap: .5rem; padding-bottom: 1.2rem; border-bottom: 1px solid currentColor; opacity: .85; }
+.treatment-header .mono-code { font-size: .58rem; }
+.treatment-genre { font: .55rem var(--font-mono); letter-spacing: .08em; }
+.treatment-title { margin: 1.5rem 0 .8rem; color: inherit; font: 2.25rem/1 var(--font-serif); }
+.treatment-synopsis { color: inherit; opacity: .86; font-size: .82rem; line-height: 1.65; }
+.treatment-meta { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding-top: 1rem; }
+.meta-tag { border: 1px solid currentColor; border-radius: 99px; padding: .32rem .55rem; font: .52rem var(--font-mono); }
+.brand-identity-feature { margin-top: 1.2rem; padding: clamp(1.6rem, 4vw, 3.5rem); background: var(--color-cobalt-dark); color: #f8f4e9; border-radius: 6px 6px 34px 6px; position: relative; overflow: hidden; }
+.brand-identity-feature::before { content: "✳"; position: absolute; right: -1rem; top: -4rem; font: 18rem var(--font-serif); color: rgba(255,255,255,.055); }
+.brand-feature-content { position: relative; z-index: 1; }
+.feature-tag { font: .61rem var(--font-mono); letter-spacing: .12em; color: var(--color-yellow); }
+.feature-heading { max-width: 17ch; color: #fffdf8; font: clamp(2.4rem, 4vw, 4rem)/1 var(--font-serif); margin: 1rem 0; }
+.feature-body { color: #e1e9e2; max-width: 65ch; font-size: .9rem; }
+.feature-pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem; }
+.pill-ink { padding: .45rem .7rem; border: 1px solid rgba(255,255,255,.3); border-radius: 99px; color: #fffdf8; font-size: .66rem; }
+.brand-feature-notice { position: relative; z-index: 1; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.2); color: #c4d2c8; }
+.brand-feature-notice .mono-code { font-size: .56rem; }
+
+/* 08 — ABOUT: human editorial rhythm, split panels and compact skill taxonomy */
+.about-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.profile-statement-box { padding: clamp(1.5rem, 3vw, 2.4rem); background: #e9e2d4; border-radius: 4px 4px 28px 4px; border-top: 4px solid var(--color-terracotta); }
+.sub-heading { font: 1.8rem var(--font-serif); margin-bottom: 1rem; }
+.lead-text { font: italic 1.45rem/1.35 var(--font-serif); color: var(--color-ink); }
+.body-text { font-size: .88rem; color: var(--color-ink-muted); }
+.about-subblock { margin-top: 2.5rem; }
+.leadership-entry { padding: .9rem 0; border-bottom: 1px solid rgba(23,37,34,.16); }
+.entry-role { font-weight: 700; font-size: .9rem; }
+.entry-desc { color: var(--color-ink-muted); font-size: .78rem; margin-top: .2rem; }
+.interests-tags, .languages-grid, .skill-chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+.tag-pill, .chip { padding: .42rem .68rem; border: 1px solid rgba(23,37,34,.18); border-radius: 99px; background: var(--color-white); color: var(--color-ink-muted); font-size: .68rem; }
+.mini-heading { margin: 1.4rem 0 .65rem; font: 1.25rem var(--font-serif); }
+.lang-card { display: flex; gap: .45rem; align-items: baseline; padding: .45rem .6rem; background: #e9eee8; border-radius: 4px; }
+.lang-name { font-size: .72rem; font-weight: 700; }
+.lang-level { font-size: .61rem; color: var(--color-ink-light); }
+.edu-card { position: relative; margin-top: .8rem; padding: 1.2rem; background: var(--color-white); border: 1px solid rgba(23,37,34,.13); border-radius: 5px 5px 18px 5px; }
+.featured-edu { background: var(--color-ink); color: #fffdf8; border: 0; padding: 1.5rem; }
+.edu-badge, .edu-score-badge { display: inline-block; margin-bottom: .7rem; font: .57rem var(--font-mono); letter-spacing: .09em; color: var(--color-terracotta); }
+.featured-edu .edu-badge { color: var(--color-yellow); }
+.edu-degree { font: 1.5rem/1.1 var(--font-serif); margin-bottom: .35rem; }
+.featured-edu .edu-degree { color: #fffdf8; }
+.edu-program { font-size: .78rem; color: var(--color-ink-muted); }
+.featured-edu .edu-program { color: #e2e9e2; }
+.edu-period { margin-top: .6rem; color: var(--color-yellow); font: .65rem var(--font-mono); }
+.edu-curriculum { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid rgba(255,255,255,.2); }
+.curriculum-label { color: var(--color-yellow); font-size: .66rem; font-weight: 700; }
+.edu-curriculum p { color: #d7e0d8; font-size: .73rem; margin: .35rem 0 0; }
+.edu-score-badge { float: right; padding: .3rem .5rem; background: var(--color-yellow-light); border-radius: 99px; color: #72591c; }
+.edu-workshop { background: var(--color-cobalt-light); }
+.badge-alt { color: var(--color-cobalt-dark); }
+.skill-cat-title { margin: 1.3rem 0 .6rem; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.chip { background: #f0ede5; }
+.skill-disclaimer { margin-top: .65rem; color: var(--color-ink-light); font-size: .66rem; }
+
+/* 09 — CONTACT: high-contrast invitation, clean form affordances */
+.section-contact { background: #e7e1d4; }
+.contact-grid { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.opportunity-box { padding: 1.5rem; background: var(--color-terracotta); color: #fffaf0; border-radius: 5px 5px 24px 5px; }
+.opp-title { color: inherit; font: 1.7rem var(--font-serif); margin-bottom: .8rem; }
+.opp-list { padding-left: 1.1rem; font-size: .82rem; }
+.opp-list li { margin-bottom: .45rem; }
+.channels-title { margin: 2rem 0 .8rem; font: 1.5rem var(--font-serif); }
+.channel-card { padding: .9rem 0; border-bottom: 1px solid rgba(23,37,34,.2); }
+.channel-label { display: block; margin-bottom: .25rem; font: .58rem var(--font-mono); letter-spacing: .1em; color: var(--color-ink-light); }
+.channel-link { font-size: .9rem; font-weight: 700; overflow-wrap: anywhere; }
+.privacy-note { margin-top: 1rem; color: var(--color-ink-light); }
+.privacy-note .mono-code { font-size: .56rem; }
+.contact-form-panel { padding: clamp(1.4rem, 3vw, 2.5rem); background: var(--color-white); border-radius: 6px 6px 28px 6px; box-shadow: 0 15px 40px rgba(23,37,34,.07); }
+.form-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(23,37,34,.17); }
+.form-header .mono-code { color: var(--color-terracotta); font-size: .58rem; }
+.form-title { font: 2.5rem var(--font-serif); margin-top: .4rem; }
+.form-group { margin-bottom: 1.1rem; }
+.form-label { display: block; margin-bottom: .4rem; font-size: .72rem; font-weight: 700; }
+.req { color: var(--color-terracotta); }
+.form-input, .form-select, .form-textarea { width: 100%; padding: .85rem .9rem; border: 1px solid rgba(23,37,34,.22); border-radius: 4px; background: #faf8f2; color: var(--color-ink); font: .82rem var(--font-sans); outline: none; transition: border .2s ease, box-shadow .2s ease; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-cobalt); box-shadow: 0 0 0 3px rgba(36,91,80,.12); }
+.form-textarea { resize: vertical; }
+.form-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.btn-submit { cursor: pointer; font-family: var(--font-sans); }
+.form-note { font-size: .65rem; color: var(--color-ink-light); }
+
+/* 10 — FOOTER: strong closure, clear navigation and visual balance */
+.editorial-footer { background: var(--color-ink); color: #e9eee7; padding: 4rem 0 1.2rem; }
+.footer-container { max-width: var(--container-max); }
+.footer-top { display: grid; grid-template-columns: 1.3fr .8fr .9fr; gap: clamp(2rem, 5vw, 5rem); padding-bottom: 3rem; }
+.colophon-title { color: var(--color-yellow); font: .65rem var(--font-mono); letter-spacing: .1em; }
+.colophon-text { max-width: 36ch; margin-top: 1rem; color: #c5d0c8; font-size: .82rem; }
+.footer-nav-title { display: block; margin-bottom: 1rem; color: var(--color-yellow); font: .6rem var(--font-mono); letter-spacing: .12em; }
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: .45rem; }
+.footer-links a { color: #dce5dd; font-size: .76rem; }
+.footer-links a:hover, .back-to-top-link:hover { color: var(--color-yellow); }
+.credit-spec { margin-bottom: .55rem; color: #c5d0c8; font-size: .73rem; }
+.credit-spec strong { color: white; }
+.back-to-top-link { display: inline-block; margin-top: 1rem; color: var(--color-yellow); font-size: .75rem; font-weight: 700; }
+.footer-bottom { display: flex; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.18); color: #9eada3; font-size: .62rem; }
+
+/* 11 — MOTION: subtle, purposeful, reduced-motion aware */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-primary { animation: rise-in .7s both ease-out; }
+  .hero-aside { animation: rise-in .85s .12s both ease-out; }
+  @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+}
+html:focus-within { scroll-behavior: smooth; }
+
+/* 12 — RESPONSIVE COMPOSITION: reflow rather than shrink */
+@media (max-width: 1100px) {
+  .masthead-inner { grid-template-columns: auto 1fr; }
+  .masthead-nav { grid-column: 1 / -1; grid-row: 2; justify-self: start; width: 100%; overflow-x: auto; }
+  .nav-links { width: max-content; padding-bottom: .25rem; }
+  .masthead-meta { grid-column: 2; grid-row: 1; }
+  .hero-container { grid-template-columns: minmax(0,1.1fr) minmax(280px,.9fr); gap: 2rem; }
+  .capabilities-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .project-main-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .content-section { padding-block: 4.5rem; }
+  .section-header { grid-template-columns: 1fr; gap: .65rem; }
+  .section-number-wrap { grid-row: auto; flex-direction: row; align-items: baseline; gap: .7rem; }
+  .section-big-number { font-size: 3.2rem; }
+  .section-heading { font-size: clamp(2.7rem, 11vw, 4.2rem); }
+  .masthead-inner { gap: .45rem; min-height: 68px; }
+  .brand-name { font-size: 1.45rem; }
+  .brand-tag { font-size: .48rem; }
+  .masthead-meta { align-items: flex-end; }
+  .meta-edition { font-size: .48rem; }
+  .status-indicator { font-size: .5rem; }
+  .masthead-nav { grid-row: 2; }
+  .nav-links { gap: 1rem; }
+  .nav-item { font-size: .7rem; }
+  .hero-section { padding-block: 4rem; }
+  .hero-container, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-headline { max-width: 10ch; font-size: clamp(4.1rem, 17vw, 6.4rem); }
+  .hero-aside { max-width: 520px; margin: 1rem auto 0; }
+  .field-memo-card { transform: none; }
+  .hero-section::before { display: none; }
+  .capabilities-grid, .creative-grid { grid-template-columns: 1fr; }
+  .cap-span-2 { grid-column: auto; }
+  .capability-card { min-height: 0; }
+  .project-main-grid { grid-template-columns: 1fr; }
+  .project-header-bar { align-items: flex-start; flex-direction: column; }
+  .project-stage-badge { margin-left: 0; }
+  .project-spec-panel { padding: 1.1rem; }
+  .treatment-card { min-height: 270px; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-colophon { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .container { padding-inline: 1rem; }
+  .masthead-inner { padding-inline: 1rem; }
+  .masthead-meta { max-width: 130px; }
+  .hero-headline { font-size: clamp(3.65rem, 18vw, 5rem); }
+  .editorial-eyebrow { gap: .45rem; }
+  .mono-label, .mono-sub { font-size: .52rem; }
+  .hero-actions { align-items: stretch; flex-direction: column; }
+  .hero-actions .btn { width: 100%; }
+  .annotation-text { font-size: 1.15rem; }
+  .spec-row { grid-template-columns: .8fr 1.2fr; }
+  .spec-value { font-size: .68rem; }
+  .project-main-grid { padding: 1.15rem; }
+  .project-title { font-size: 2.8rem; }
+  .research-stat-strip { flex-wrap: wrap; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-colophon { grid-column: auto; }
+  .footer-bottom { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
