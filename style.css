@@ -2241,7 +2241,7 @@ a:hover { color: var(--color-terracotta); text-decoration: none; }
 .memo-footer-tag .mono-code { font-size: .55rem; }
 
 /* 03 — MARQUEE: rhythm and repetition, with a calmer pace */
-.editorial-tape { overflow: hidden; background: var(--color-terracotta); color: #fffaf0; padding: .85rem 0; border-block: 1px solid rgba(23,37,34,.2); }
+.editorial-tape { overflow: hidden; background: var(--color-terracotta); color: #111111; padding: .85rem 0; border-block: 1px solid rgba(23,37,34,.2); }
 .tape-content { display: flex; align-items: center; justify-content: space-around; gap: 2.4rem; min-width: max-content; padding-inline: 2rem; font: .62rem var(--font-mono); letter-spacing: .13em; }
 .tape-sep { color: var(--color-yellow); font-size: 1rem; }
 
