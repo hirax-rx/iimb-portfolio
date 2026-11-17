@@ -2326,7 +2326,7 @@ a:hover { color: var(--color-terracotta); text-decoration: none; }
 .creative-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
 .treatment-card { position: relative; min-height: 310px; display: flex; flex-direction: column; padding: 1.5rem; background: var(--color-ink); color: #f8f4e9; border-radius: 5px 5px 28px 5px; overflow: hidden; }
 .treatment-card:nth-child(2) { background: var(--color-terracotta); }
-.treatment-card:nth-child(3) { background: #e9d8ad; color: var(--color-ink); }
+.treatment-card:nth-child(3) { background: #e9d8ad; color: color: #172522; /* Ensures dark ink text on light background */ }
 .treatment-card::after { content: "✳"; position: absolute; right: 1rem; bottom: .3rem; font: 6rem var(--font-serif); opacity: .09; }
 .treatment-header { display: flex; flex-direction: column; gap: .5rem; padding-bottom: 1.2rem; border-bottom: 1px solid currentColor; opacity: .85; }
 .treatment-header .mono-code { font-size: .58rem; }
