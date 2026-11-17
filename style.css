@@ -584,8 +584,8 @@ li {
   font-style: italic;
   font-size: 1.15rem;
   line-height: 1.5;
-  color: #172522;
-  background-color: #f6f2e9;
+  color: #172522 !important;
+  background-color: #f6f2e9 !important;
   border-left: 3px solid var(--color-terracotta);
   padding: 0.85rem 1rem;
   margin-bottom: var(--space-lg);
